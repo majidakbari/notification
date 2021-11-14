@@ -65,7 +65,9 @@ class Handler extends ExceptionHandler
             break;
         case ValidationException::class:
             $statusCode = HTTPResponse::HTTP_UNPROCESSABLE_ENTITY;
-            /** @var Validator $validator */
+            /**
+ * @var Validator $validator 
+*/
             $validator = $e->validator;
             $msg = $validator->errors()->getMessages();
             break;

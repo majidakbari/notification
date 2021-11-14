@@ -7,15 +7,15 @@ services:
   ## --------------------------------------------------
   assignment-core:
     build:
-      context: .docker/app
+      context: .docker/publisher
       dockerfile: Dockerfile
       args:
         - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
     container_name: assignment-core
     volumes:
-      - ./app/:/var/www/
-      - ./.docker/app/config/php.ini:/usr/local/etc/php/php.ini
-      - ./.data/app/log/webserver:/var/log/apache2
+      - ./publisher/:/var/www/
+      - ./.docker/publisher/config/php.ini:/usr/local/etc/php/php.ini
+      - ./.data/publisher/log/webserver:/var/log/apache2
     environment:
       - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
       - EXCLUDE_PORTS=443
