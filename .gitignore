@@ -1,0 +1,5 @@
+.idea
+.env
+.phpintel/
+.DS_Store
+.composer
