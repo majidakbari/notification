@@ -84,7 +84,9 @@ class SendNotificationControllerTest extends TestCase
         $response = $this->postJson(self::NOTIFICATION_URI, $data);
 
         $response->assertStatus(422);
-        $response->assertJsonStructure($expectedKeys);
+        $response->assertJsonStructure([
+            'message' => $expectedKeys
+        ]);
     }
 
     public function invalidAcceptHeaderDataProvider(): array
