@@ -15,7 +15,7 @@ class OnlyJsonResponseMiddlewareTest extends TestCase
      * @group middleware
      * @dataProvider invalidAcceptHeaderDataProvider
      */
-    public function testHandle_shouldThrowException(string $acceptHeader)
+    public function testHandle_shouldThrowException(string $acceptHeader): void
     {
         $this->expectException(InvalidAcceptHeaderException::class);
 
@@ -32,7 +32,7 @@ class OnlyJsonResponseMiddlewareTest extends TestCase
      * @group middleware
      * @dataProvider validAcceptHeaderDataProvider
      */
-    public function testHandle_shouldCallTheNextMiddleware(?string $acceptHeader)
+    public function testHandle_shouldCallTheNextMiddleware(?string $acceptHeader): void
     {
         $request = new Request([], [], [], [], [], [
             'REQUEST_URI' => 'test/unit/',

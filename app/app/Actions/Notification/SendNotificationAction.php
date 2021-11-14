@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Notification;
 
 use App\DataTransferObjects\Notification\SendNotificationDto;
 

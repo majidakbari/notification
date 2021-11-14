@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Notification;
 
-use App\Actions\SendNotificationAction;
+use App\Actions\Notification\SendNotificationAction;
 use App\DataTransferObjects\Notification\SendNotificationDto;
 use App\Http\Requests\Notification\SendNotificationRequest;
 use Illuminate\Http\JsonResponse;
