@@ -30,8 +30,8 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @param array $data
-     * @param array $fillable
+     * @param  array $data
+     * @param  array $fillable
      * @return Model
      * @throws BindingResolutionException
      */
@@ -44,9 +44,9 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @param array $data
-     * @param $object
-     * @param array $fillable
+     * @param  array $data
+     * @param  $object
+     * @param  array $fillable
      * @return Model
      * @throws BindingResolutionException
      */
@@ -63,7 +63,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @param Model $object
+     * @param  Model $object
      * @return bool|null
      * @throws Exception
      */
@@ -78,8 +78,8 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @param int $id
-     * @param array $columns
+     * @param  int   $id
+     * @param  array $columns
      * @return mixed
      * @throws BindingResolutionException
      */
@@ -89,9 +89,9 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @param $attribute
-     * @param $value
-     * @param array $columns
+     * @param  $attribute
+     * @param  $value
+     * @param  array $columns
      * @return mixed
      * @throws BindingResolutionException
      */
