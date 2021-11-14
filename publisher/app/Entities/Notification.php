@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use Database\Factories\Entities\NotificationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -16,6 +17,8 @@ use InvalidArgumentException;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property bool $sent
+ *
+ * @method static NotificationFactory factory(...$parameters)
  */
 class Notification extends Model
 {
