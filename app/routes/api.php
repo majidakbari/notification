@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\SendNotificationController;
+use App\Http\Controllers\Notification\SendNotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::as('api.')->group(function() {

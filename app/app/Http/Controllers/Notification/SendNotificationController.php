@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Notification;
 
-use App\Http\Requests\SendNotificationRequest;
+use App\Http\Requests\Notification\SendNotificationRequest;
 
 class SendNotificationController
 {

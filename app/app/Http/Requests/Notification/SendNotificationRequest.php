@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Notification;
 
 use App\Entities\Notification;
 use App\Rules\IranianPhoneNumberValidationRule;

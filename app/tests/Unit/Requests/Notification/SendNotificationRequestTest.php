@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Requests;
+namespace Tests\Unit\Requests\Notification;
 
-use App\Http\Requests\SendNotificationRequest;
+use App\Http\Requests\Notification\SendNotificationRequest;
 use App\Rules\IranianPhoneNumberValidationRule;
 use Illuminate\Validation\Rule;
 use Tests\TestCase;
