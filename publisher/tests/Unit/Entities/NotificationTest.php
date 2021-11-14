@@ -11,28 +11,28 @@ class NotificationTest extends TestCase
      * @group unit
      * @dataProvider typeDataProvider
      */
-    public function testGetTypeAttribute_shouldWork(int $type, string $typeLabel): void
+    public function testGetTypeAttribute_shouldWork(string $typeLabel, int $typeValue): void
     {
         //arrange
         $notification = new Notification();
 
         //act
-        $actual = $notification->getTypeAttribute($type);
+        $actual = $notification->getTypeDatabaseValue($typeLabel);
 
         //assert
-        $this->assertEquals($typeLabel, $actual);
+        $this->assertEquals($typeValue, $actual);
     }
 
     public function typeDataProvider(): array
     {
         return [
             'sms' => [
-                1,
-                'sms'
+                'sms',
+                1
             ],
             'email' => [
-                2,
-                'email'
+                'email',
+                2
             ]
         ];
     }

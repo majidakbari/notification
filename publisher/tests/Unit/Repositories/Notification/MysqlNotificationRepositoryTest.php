@@ -22,5 +22,6 @@ class MysqlNotificationRepositoryTest extends TestCase
 
         //assert
         $this->assertDatabaseHas('notifications', $notification->toArray());
+        $this->assertNotNull($result->id);
     }
 }
