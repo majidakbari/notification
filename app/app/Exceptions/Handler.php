@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\Helpers;
+use Illuminate\Http\Response;
 use Throwable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Validator;
@@ -22,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException as SymfonyHttpException
 
 class Handler extends ExceptionHandler
 {
-    protected $appExceptions = [
+    protected array $appExceptions = [
         NotFoundHttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
@@ -41,16 +43,16 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e): Response|JsonResponse|HTTPResponse
     {
-        if ($exception instanceof HttpException) {
-            return $this->generateJsonResponseForHttpExceptions($exception);
+        if ($e instanceof HttpException) {
+            return $this->generateJsonResponseForHttpExceptions($e);
         }
-        if (in_array(get_class($exception), $this->appExceptions)) {
-            return $this->generateJsonResponseForAppExceptions($exception);
+        if (in_array(get_class($e), $this->appExceptions)) {
+            return $this->generateJsonResponseForAppExceptions($e);
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 
     public function generateJsonResponseForAppExceptions(Throwable $e): JsonResponse
@@ -63,9 +65,7 @@ class Handler extends ExceptionHandler
             break;
         case ValidationException::class:
             $statusCode = HTTPResponse::HTTP_UNPROCESSABLE_ENTITY;
-            /**
- * @var Validator $validator 
-*/
+            /** @var Validator $validator */
             $validator = $e->validator;
             $msg = $validator->errors()->getMessages();
             break;
@@ -83,7 +83,7 @@ class Handler extends ExceptionHandler
             break;
         case UnauthorizedException::class:
             $statusCode = HTTPResponse::HTTP_FORBIDDEN;
-            $msg = $e->getMessage() ?? trans('error.' . get_class_name($e));
+            $msg = $e->getMessage() ?? trans('error.' . Helpers::getClassName($e));
             break;
         case ThrottleRequestsException::class:
             $statusCode = HTTPResponse::HTTP_TOO_MANY_REQUESTS;
@@ -95,8 +95,9 @@ class Handler extends ExceptionHandler
             $statusCode = HTTPResponse::HTTP_INTERNAL_SERVER_ERROR;
             $msg = 'Error';
         }
+        $className = Helpers::getClassName($e);
 
-        return $this->generateErrorResponse(get_class_name($e), $msg ?? trans('error.' . get_class_name($e)), $statusCode);
+        return $this->generateErrorResponse($className, $msg ?? trans("error.$className"), $statusCode);
     }
 
     private function generateJsonResponseForHttpExceptions(HttpException $e): JsonResponse

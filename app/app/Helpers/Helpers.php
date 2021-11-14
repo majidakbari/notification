@@ -1,11 +1,13 @@
 <?php
 
-if (!function_exists('get_class_name')) {
-    function get_class_name($object)
+namespace App\Helpers;
+
+class Helpers
+{
+    public static function getClassName(object $object): string
     {
-        if (is_object($object)) {
-            $object = get_class($object);
-        }
-        return substr($object, strrpos($object, '\\') + 1);
+        $class = get_class($object);
+
+        return substr($class, strrpos($class, '\\') + 1);
     }
 }

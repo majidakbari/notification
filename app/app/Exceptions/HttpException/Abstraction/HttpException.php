@@ -2,6 +2,7 @@
 
 namespace App\Exceptions\HttpException\Abstraction;
 
+use App\Helpers\Helpers;
 use RuntimeException;
 
 abstract class HttpException extends RuntimeException
@@ -10,7 +11,7 @@ abstract class HttpException extends RuntimeException
 
     public function __construct(int $statusCode, string $message = null)
     {
-        $error = get_class_name($this);
+        $error = Helpers::getClassName($this);
         $this->error = $error;
 
         parent::__construct($message ?? trans("error.$error"), $statusCode, null);
