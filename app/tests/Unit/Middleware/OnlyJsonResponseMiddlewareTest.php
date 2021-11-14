@@ -2,49 +2,65 @@
 
 namespace Tests\Unit\Middleware;
 
+use Tests\Helpers\Helpers;
 use Tests\TestCase;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Http\Middleware\OnlyJsonResponseMiddleware;
 use App\Exceptions\HttpException\InvalidAcceptHeaderException;
 
 class OnlyJsonResponseMiddlewareTest extends TestCase
 {
-    use WithFaker;
-
     /**
      * @group unit
      * @group middleware
+     * @dataProvider invalidAcceptHeaderDataProvider
      */
-    public function testFail()
+    public function testHandle_shouldThrowException(string $acceptHeader)
     {
         $this->expectException(InvalidAcceptHeaderException::class);
 
         $request = new Request([], [], [], [], [], [
-            'REQUEST_URI' => 'test/unit/' . $this->faker->name,
-            'HTTP_ACCEPT' => $this->faker->randomElement([
-                'text/html',
-                'application/xml',
-                'application/pdf'
-            ])
+            'REQUEST_URI' => 'test/unit/',
+            'HTTP_ACCEPT' => $acceptHeader
         ]);
 
-        (new OnlyJsonResponseMiddleware())->handle($request, null);
+        (new OnlyJsonResponseMiddleware())->handle($request);
     }
 
     /**
      * @group unit
      * @group middleware
+     * @dataProvider validAcceptHeaderDataProvider
      */
-    public function testSuccess()
+    public function testHandle_shouldCallTheNextMiddleware(?string $acceptHeader)
     {
         $request = new Request([], [], [], [], [], [
-            'REQUEST_URI' => 'test/unit/' . $this->faker->name,
-            'HTTP_ACCEPT' => $this->faker->randomElement(['*/*', 'application/json', null])
+            'REQUEST_URI' => 'test/unit/',
+            'HTTP_ACCEPT' => $acceptHeader
         ]);
 
         (new OnlyJsonResponseMiddleware())->handle($request, function () {
             $this->assertTrue(true);
         });
+    }
+
+    public function invalidAcceptHeaderDataProvider(): array
+    {
+        return Helpers::invalidAcceptHeaderDataProvider();
+    }
+
+    public function validAcceptHeaderDataProvider(): array
+    {
+        return [
+            'all accept headers' => [
+                '*/*'
+            ],
+            'json' => [
+                'application/json'
+            ],
+            'accept header is not provider' => [
+                null
+            ]
+        ];
     }
 }

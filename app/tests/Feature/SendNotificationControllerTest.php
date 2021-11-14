@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Tests\Helpers\Helpers;
 use Tests\TestCase;
 
 class SendNotificationControllerTest extends TestCase
@@ -88,23 +89,7 @@ class SendNotificationControllerTest extends TestCase
 
     public function invalidAcceptHeaderDataProvider(): array
     {
-        return [
-            'html' => [
-                'text/html'
-            ],
-            'xhtml' => [
-                'application/xhtml+xml'
-            ],
-            'xml' => [
-                'application/xml'
-            ],
-            'avif' => [
-                'image/avif'
-            ],
-            'webp' => [
-                'image/webp'
-            ]
-        ];
+        return Helpers::invalidAcceptHeaderDataProvider();
     }
 
     public function invalidInputDataProvider(): array
