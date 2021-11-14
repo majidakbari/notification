@@ -3,6 +3,7 @@
 namespace Tests\Unit\Rules;
 
 use App\Rules\IranianPhoneNumberValidationRule;
+use Symfony\Component\VarDumper\Cloner\Stub;
 use Tests\TestCase;
 
 class IranianPhoneNumberValidationRuleTest extends TestCase
@@ -11,7 +12,7 @@ class IranianPhoneNumberValidationRuleTest extends TestCase
      * @group unit
      * @dataProvider mobileNumberDataProvider
      */
-    public function testPasses_shouldWork(string $mobileNumber, bool $expected): void
+    public function testPasses_shouldWork(string|array|int|object $mobileNumber, bool $expected): void
     {
         //arrange
         $rule = new IranianPhoneNumberValidationRule();
@@ -63,6 +64,18 @@ class IranianPhoneNumberValidationRuleTest extends TestCase
             ],
             'shorter than iranian numbers' => [
                 '0098919111223',
+                false
+            ],
+            'array input' => [
+                [1, 2],
+                false
+            ],
+            'integer input' => [
+                9121112233,
+                false
+            ],
+            'object input' => [
+                new Stub(),
                 false
             ]
         ];
