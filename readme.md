@@ -8,16 +8,9 @@ This application is a standalone micro service which provides REST HTTP endpoint
 * Application level logs (For every single API)
 * Increased code coverage by writing different unit and feature tests
 * Powerful error handling
-* Descriptive API documentation powered by Swagger
 
 ## Installation guide
 Follow these steps to simply run the project.
-
-### Clone the project
-Clone this repository to your local machine using the following command:
-```bash
-git clone git@github.com:majidakbari/financial-service.git
-```
 
 ### Environment variables
 There is a `.env.example` file in the project's root directory containing OS level environment variables that are used for deploying the whole application.
@@ -44,7 +37,7 @@ docker-compose up -d
 Only the first time you're running the application, you must execute the following command:
 
 ```bash
-docker-compose exec financial-core bootup
+docker-compose exec assignment-core bootup
 ```
 It will install dependencies and will migrate/seed the database.
 
@@ -60,37 +53,30 @@ Under `.data/app/log` directory there is a directory named `webserver` which hol
 #### Application level logs
 Under `storage/logs` directory, you can find detailed logs of API calls.
 
-### API Documentation
-Models and endpoints are fully specified using swagger openApi.
-Navigate to `localhost:{{SWAGGER_PORT}}` (default equals to http://localhost:9093) on your host to see API documentation.
-
 ### Tests
 There are different types of testing methods which you can find under `app/tests` directory. Tests are divided to the following groups:
 * feature
 * unit
-* transaction
 * middleware
 * repository
 * in-memory-database
 
 To run tests, in the terminal use the following command:
 ```bash
-docker-compose exec financial-core vendor/bin/phpunit
+docker-compose exec assignment-core vendor/bin/phpunit
 ```
-You can run each group individually by passing `--group {groupName}` to phpunit command. Of course it is possible to create many more test cases for this application. 
+You can run each group individually by passing `--group {groupName}` to phpunit command. Of course, it is possible to create many more test cases for this application. 
 
 ## Technical discussions (Images/Containers)
-This project includes three docker containers based on `php-apache`, `MySQL` and `Swagger` images.
+This project includes three docker containers based on `php-apache`, `MySQL` and `Rabbitmq` images.
 It is under development, So the source code is mounted from the host to containers. On production environment you should remove these volumes.
 
-`app`
-php:7.4.10-apache
+`assignment-core`
+php:8.0.12-apache
 
-`db`
-MySQL 5.7.31
+`assignment-db`
+MySQL:latest(8.0.27)
 
-`swagger`
-swaggerapi/swagger-ui
 
 ## Author
 Majid Akbari [Linkedin](https://linkedin.com/in/majid-akbari)
