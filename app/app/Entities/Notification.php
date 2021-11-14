@@ -15,6 +15,7 @@ use InvalidArgumentException;
  * @property string $type
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property bool $sent
  */
 class Notification extends Model
 {
@@ -26,6 +27,10 @@ class Notification extends Model
     public const TYPE_EMAIL_LABEL = 'email';
 
     protected $table = 'notifications';
+
+    protected $casts = [
+        'sent' => 'bool'
+    ];
 
     public function getTypeAttribute(int $value): string
     {
