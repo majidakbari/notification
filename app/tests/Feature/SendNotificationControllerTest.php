@@ -78,7 +78,7 @@ class SendNotificationControllerTest extends TestCase
         array $expectedKeys
     ): void {
         //arrange
-        $data = compact($to, $name, $message, $type);
+        $data = compact('to', 'name', 'message', 'type');
 
         //act
         $response = $this->postJson(self::NOTIFICATION_URI, $data);
