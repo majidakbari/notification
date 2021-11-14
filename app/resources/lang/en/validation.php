@@ -147,5 +147,5 @@ return [
     */
 
     'attributes' => [],
-
+    'iranian_mobile_number' => 'The :attribute is not a valid Iranian mobile number.'
 ];

@@ -40,4 +40,12 @@ class Notification extends Model
             default => throw new InvalidArgumentException()
         };
     }
+
+    public static function getAllValidTypes(): array
+    {
+        return [
+            self::TYPE_SMS_LABEL,
+            self::TYPE_EMAIL_LABEL
+        ];
+    }
 }
