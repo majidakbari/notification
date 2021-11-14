@@ -12,7 +12,7 @@ use InvalidArgumentException;
  * @property string $to
  * @property string $name
  * @property string $message
- * @property string $type
+ * @property int $type
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property bool $sent
@@ -32,11 +32,11 @@ class Notification extends Model
         'sent' => 'bool'
     ];
 
-    public function getTypeAttribute(int $value): string
+    public static function getTypeDatabaseValue(string $value): int
     {
         return match($value) {
-            self::TYPE_SMS => self::TYPE_SMS_LABEL,
-            self::TYPE_EMAIL => self::TYPE_EMAIL_LABEL,
+            self::TYPE_SMS_LABEL => self::TYPE_SMS,
+            self::TYPE_EMAIL_LABEL => self::TYPE_EMAIL,
             default => throw new InvalidArgumentException()
         };
     }
