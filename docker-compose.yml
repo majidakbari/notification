@@ -51,8 +51,6 @@ services:
   assignment-queue:
     image: bitnami/rabbitmq
     container_name: assignment-queue
-    ports:
-      - '${RABBITMQ_HOST_PORT}:15672'
     restart: always
     environment:
       - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}

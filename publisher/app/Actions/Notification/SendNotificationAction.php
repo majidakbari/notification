@@ -6,6 +6,7 @@ use App\DataTransferObjects\Notification\SendNotificationDto;
 use App\Entities\Notification;
 use App\Integrations\QueueManagerInterface;
 use App\Repositories\Notification\NotificationRepositoryInterface;
+use App\ValueObjects\Queueable;
 
 class SendNotificationAction
 {
@@ -17,7 +18,7 @@ class SendNotificationAction
 
     public function __invoke(SendNotificationDto $dto): void
     {
-        $this->queueManager->publish();
+        $this->publishMessageToQueue($dto);
         $this->insertNotification($dto);
     }
 
@@ -33,5 +34,19 @@ class SendNotificationAction
         $notification->updated_at = now();
 
         $this->notificationRepository->insert($notification);
+    }
+
+    private function publishMessageToQueue(SendNotificationDto $dto): void
+    {
+        $this->queueManager->publish(new Queueable(
+                Queueable::NOTIFICATION_QUEUE,
+                [
+                    'to' => $dto->to,
+                    'name' => $dto->name,
+                    'message' => $dto->message,
+                    'type' => $dto->type,
+                ]
+            )
+        );
     }
 }
