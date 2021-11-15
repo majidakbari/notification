@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Console;
+namespace Consumer\Console;
 
-use App\Console\Commands\ListenToRabbitmqConsoleCommand;
+use Consumer\Console\Commands\ListenToRabbitmqConsoleCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ListenToRabbitmqConsoleCommand::class
+        ListenToRabbitmqConsoleCommand::class,
     ];
 
     /**
