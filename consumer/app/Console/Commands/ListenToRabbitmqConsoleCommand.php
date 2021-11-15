@@ -39,7 +39,6 @@ class ListenToRabbitmqConsoleCommand extends Command
     {
         $this->info('it works');
         while (true) {
-
         }
     }
 }
