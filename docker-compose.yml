@@ -16,14 +16,15 @@ services:
       - ./publisher/:/var/www/
       - ./.docker/publisher/config/php.ini:/usr/local/etc/php/php.ini
       - ./.data/publisher/log/webserver:/var/log/apache2
-    environment:
-      - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
-      - EXCLUDE_PORTS=443
     ports:
       - "${BACKEND_PORT}:80"
     restart: always
+    environment:
+      - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
+      - EXCLUDE_PORTS=443
     depends_on:
       - assignment-db
+      - assignment-queue
     env_file:
       - .env
 
@@ -43,3 +44,19 @@ services:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
+
+  ## --------------------------------------------------
+  ## | Queue - Rabbitmq
+  ## --------------------------------------------------
+  assignment-queue:
+    image: bitnami/rabbitmq
+    container_name: assignment-queue
+    ports:
+      - '${RABBITMQ_HOST_PORT}:15672'
+    restart: always
+    environment:
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_NODE_TYPE=queue-disc
+    volumes:
+      - './.data/rabbitmq:/bitnami'
