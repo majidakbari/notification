@@ -12,7 +12,7 @@ class IranianPhoneNumberValidationRuleTest extends TestCase
      * @group unit
      * @dataProvider mobileNumberDataProvider
      */
-    public function testPasses_shouldWork(string|array|int|object $mobileNumber, bool $expected): void
+    public function testPassesShouldWork(string|array|int|object $mobileNumber, bool $expected): void
     {
         //arrange
         $rule = new IranianPhoneNumberValidationRule();

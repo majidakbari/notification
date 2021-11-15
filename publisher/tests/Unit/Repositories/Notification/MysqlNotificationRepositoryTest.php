@@ -11,7 +11,7 @@ class MysqlNotificationRepositoryTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function testInsert_shouldWork(): void
+    public function testInsertShouldWork(): void
     {
         //arrange
         $notification = Notification::factory()->make();

@@ -13,7 +13,7 @@ class SendNotificationRequestTest extends TestCase
      * @group unit
      * @dataProvider dataProvider
      */
-    public function testRules_shouldWork(SendNotificationRequest $request, array $expected): void
+    public function testRulesShouldWork(SendNotificationRequest $request, array $expected): void
     {
         //act
         $actual = $request->rules();
@@ -53,7 +53,5 @@ class SendNotificationRequestTest extends TestCase
                 ]
             ],
         ];
-
-
     }
 }

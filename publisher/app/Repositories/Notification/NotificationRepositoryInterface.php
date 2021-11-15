@@ -6,5 +6,5 @@ use App\Entities\Notification;
 
 interface NotificationRepositoryInterface
 {
-    function insert(Notification $notification): Notification;
+    public function insert(Notification $notification): Notification;
 }

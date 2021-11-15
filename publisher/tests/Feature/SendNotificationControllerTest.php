@@ -18,7 +18,7 @@ class SendNotificationControllerTest extends TestCase
      * @group feature
      * @throws Exception
      */
-    public function testInvoke_shouldWorkForSendingSms(): void
+    public function testInvokeShouldWorkForSendingSms(): void
     {
         //arrange
         $to = '989121112233';
@@ -48,7 +48,7 @@ class SendNotificationControllerTest extends TestCase
     /**
      * @group feature
      */
-    public function testInvoke_shouldWorkForSendingEmail(): void
+    public function testInvokeShouldWorkForSendingEmail(): void
     {
         //arrange
         $to = 'foo@bar.com';
@@ -79,7 +79,7 @@ class SendNotificationControllerTest extends TestCase
      * @group feature
      * @dataProvider invalidAcceptHeaderDataProvider
      */
-    public function testInvoke_shouldFailWhenAcceptHeaderIsNotValid(string $acceptHeader): void
+    public function testInvokeShouldFailWhenAcceptHeaderIsNotValid(string $acceptHeader): void
     {
         //act
         $response = $this->postJson(self::NOTIFICATION_URI, [], ['accept' => $acceptHeader]);
@@ -96,7 +96,7 @@ class SendNotificationControllerTest extends TestCase
      * @group feature
      * @dataProvider invalidInputDataProvider
      */
-    public function testInvoke_shouldReturn422ForInvalidInput(
+    public function testInvokeShouldReturn422ForInvalidInput(
         ?string $to,
         ?string $name,
         ?string $message,

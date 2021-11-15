@@ -6,5 +6,5 @@ use App\ValueObjects\Queueable;
 
 interface QueueManagerInterface
 {
-    function publish(Queueable $queueable): void;
+    public function publish(Queueable $queueable): void;
 }

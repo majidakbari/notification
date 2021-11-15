@@ -59,43 +59,43 @@ class Handler extends ExceptionHandler
     {
         $class = get_class($e);
         switch ($class) {
-        case NotFoundHttpException::class:
-        case ModelNotFoundException::class:
-            $statusCode = HTTPResponse::HTTP_NOT_FOUND;
-            break;
-        case ValidationException::class:
-            $statusCode = HTTPResponse::HTTP_UNPROCESSABLE_ENTITY;
-            /**
- * @var Validator $validator 
+            case NotFoundHttpException::class:
+            case ModelNotFoundException::class:
+                $statusCode = HTTPResponse::HTTP_NOT_FOUND;
+                break;
+            case ValidationException::class:
+                $statusCode = HTTPResponse::HTTP_UNPROCESSABLE_ENTITY;
+                /**
+     * @var Validator $validator
 */
-            $validator = $e->validator;
-            $msg = $validator->errors()->getMessages();
-            break;
-        case HttpResponseException::class:
-            $statusCode = HTTPResponse::HTTP_INTERNAL_SERVER_ERROR;
-            break;
-        case MethodNotAllowedHttpException::class:
-            $statusCode = HTTPResponse::HTTP_METHOD_NOT_ALLOWED;
-            break;
-        case AuthenticationException::class:
-            $statusCode = HTTPResponse::HTTP_UNAUTHORIZED;
-            break;
-        case AuthorizationException::class:
-            $statusCode = HTTPResponse::HTTP_FORBIDDEN;
-            break;
-        case UnauthorizedException::class:
-            $statusCode = HTTPResponse::HTTP_FORBIDDEN;
-            $msg = $e->getMessage() ?? trans('error.' . Helpers::getClassName($e));
-            break;
-        case ThrottleRequestsException::class:
-            $statusCode = HTTPResponse::HTTP_TOO_MANY_REQUESTS;
-            break;
-        case BadRequestHttpException::class:
-            $statusCode = HTTPResponse::HTTP_BAD_REQUEST;
-            break;
-        default:
-            $statusCode = HTTPResponse::HTTP_INTERNAL_SERVER_ERROR;
-            $msg = 'Error';
+                $validator = $e->validator;
+                $msg = $validator->errors()->getMessages();
+                break;
+            case HttpResponseException::class:
+                $statusCode = HTTPResponse::HTTP_INTERNAL_SERVER_ERROR;
+                break;
+            case MethodNotAllowedHttpException::class:
+                $statusCode = HTTPResponse::HTTP_METHOD_NOT_ALLOWED;
+                break;
+            case AuthenticationException::class:
+                $statusCode = HTTPResponse::HTTP_UNAUTHORIZED;
+                break;
+            case AuthorizationException::class:
+                $statusCode = HTTPResponse::HTTP_FORBIDDEN;
+                break;
+            case UnauthorizedException::class:
+                $statusCode = HTTPResponse::HTTP_FORBIDDEN;
+                $msg = $e->getMessage() ?? trans('error.' . Helpers::getClassName($e));
+                break;
+            case ThrottleRequestsException::class:
+                $statusCode = HTTPResponse::HTTP_TOO_MANY_REQUESTS;
+                break;
+            case BadRequestHttpException::class:
+                $statusCode = HTTPResponse::HTTP_BAD_REQUEST;
+                break;
+            default:
+                $statusCode = HTTPResponse::HTTP_INTERNAL_SERVER_ERROR;
+                $msg = 'Error';
         }
         $className = Helpers::getClassName($e);
 
@@ -113,7 +113,8 @@ class Handler extends ExceptionHandler
             [
             'error' => $errorCode,
             'message' => $msg
-            ], $statusCode
+            ],
+            $statusCode
         );
     }
 }

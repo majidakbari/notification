@@ -41,15 +41,14 @@ class SendNotificationAction
     private function publishMessageToQueue(SendNotificationDto $dto, string $messageKey): void
     {
         $this->queueManager->publish(new Queueable(
-                Queueable::NOTIFICATION_QUEUE,
-                [
+            Queueable::NOTIFICATION_QUEUE,
+            [
                     'to' => $dto->to,
                     'name' => $dto->name,
                     'message' => $dto->message,
                     'type' => $dto->type,
                     'key' => $messageKey
                 ]
-            )
-        );
+        ));
     }
 }

@@ -11,7 +11,7 @@ class HelpersTest extends TestCase
     /**
      * @group unit
      */
-    public function testGetClassName_shouldWork(): void
+    public function testGetClassNameShouldWork(): void
     {
         //arrange
         $instance = new Stub();

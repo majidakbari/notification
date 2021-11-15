@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class SendNotificationDtoTest extends TestCase
 {
-    public function testFromArray_shouldWork(): void
+    public function testFromArrayShouldWork(): void
     {
         //arrange
         $to = 'foo';

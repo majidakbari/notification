@@ -38,7 +38,7 @@ class Notification extends Model
 
     public static function getTypeDatabaseValue(string $value): int
     {
-        return match($value) {
+        return match ($value) {
             self::TYPE_SMS_LABEL => self::TYPE_SMS,
             self::TYPE_EMAIL_LABEL => self::TYPE_EMAIL,
             default => throw new InvalidArgumentException()

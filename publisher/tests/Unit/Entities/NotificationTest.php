@@ -11,7 +11,7 @@ class NotificationTest extends TestCase
      * @group unit
      * @dataProvider typeDataProvider
      */
-    public function testGetTypeAttribute_shouldWork(string $typeLabel, int $typeValue): void
+    public function testGetTypeDatabaseValueShouldWork(string $typeLabel, int $typeValue): void
     {
         //arrange
         $notification = new Notification();
