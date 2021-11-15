@@ -24,6 +24,7 @@ class CreateNotificationsTable extends Migration
                 Notification::TYPE_EMAIL . '=' . Notification::TYPE_EMAIL_LABEL
             );
             $table->boolean('sent');
+            $table->string('message_key')->index();
             $table->timestamps();
         });
     }

@@ -18,11 +18,12 @@ class SendNotificationAction
 
     public function __invoke(SendNotificationDto $dto): void
     {
-        $this->publishMessageToQueue($dto);
-        $this->insertNotification($dto);
+        $messageKey = uniqid(more_entropy: true);
+        $this->publishMessageToQueue($dto, $messageKey);
+        $this->insertNotification($dto, $messageKey);
     }
 
-    private function insertNotification(SendNotificationDto $dto): void
+    private function insertNotification(SendNotificationDto $dto, string $messageKey): void
     {
         $notification = new Notification();
         $notification->to = $dto->to;
@@ -30,13 +31,14 @@ class SendNotificationAction
         $notification->message = $dto->message;
         $notification->type = Notification::getTypeDatabaseValue($dto->type);
         $notification->sent = false;
+        $notification->message_key = $messageKey;
         $notification->created_at = now();
         $notification->updated_at = now();
 
         $this->notificationRepository->insert($notification);
     }
 
-    private function publishMessageToQueue(SendNotificationDto $dto): void
+    private function publishMessageToQueue(SendNotificationDto $dto, string $messageKey): void
     {
         $this->queueManager->publish(new Queueable(
                 Queueable::NOTIFICATION_QUEUE,
@@ -45,6 +47,7 @@ class SendNotificationAction
                     'name' => $dto->name,
                     'message' => $dto->message,
                     'type' => $dto->type,
+                    'key' => $messageKey
                 ]
             )
         );

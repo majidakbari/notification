@@ -17,6 +17,7 @@ use InvalidArgumentException;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property bool $sent
+ * @property string $message_key
  *
  * @method static NotificationFactory factory(...$parameters)
  */

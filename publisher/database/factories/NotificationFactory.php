@@ -19,7 +19,8 @@ class NotificationFactory extends Factory
             'name' => $this->faker->name,
             'message' => $this->faker->sentence,
             'type' => $this->faker->randomElement([Notification::TYPE_SMS, Notification::TYPE_EMAIL]),
-            'sent' => $this->faker->boolean
+            'sent' => $this->faker->boolean,
+            'message_key' => $this->faker->uuid
         ];
     }
 }
