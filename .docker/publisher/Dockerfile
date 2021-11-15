@@ -13,7 +13,7 @@ RUN apt-get update -y && \
         libssl-dev \
         libonig-dev \
         unzip && \
-        docker-php-ext-install -j$(nproc) zip \
+        docker-php-ext-install -j$(nproc) zip sockets \
         mbstring \
         pdo \
         pdo_mysql \
