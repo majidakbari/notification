@@ -113,7 +113,6 @@ class SendNotificationControllerTest extends TestCase
         $response->assertJsonStructure([
             'message' => $expectedKeys
         ]);
-//        $this->assertDatabaseHas()
     }
 
     public function invalidAcceptHeaderDataProvider(): array
