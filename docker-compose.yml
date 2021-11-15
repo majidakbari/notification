@@ -44,7 +44,6 @@ services:
     restart: always
     environment:
       - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
-      - EXCLUDE_PORTS=443
     depends_on:
       - assignment-db
       - assignment-queue
