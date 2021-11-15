@@ -2,31 +2,47 @@
 
 namespace Tests\Feature;
 
+use App\Integrations\QueueManagerInterface;
+use Exception;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\Helpers\Helpers;
 use Tests\TestCase;
 
 class SendNotificationControllerTest extends TestCase
 {
+    use DatabaseTransactions;
+
     private const NOTIFICATION_URI = '/api/notification';
 
     /**
      * @group feature
+     * @throws Exception
      */
     public function testInvoke_shouldWorkForSendingSms(): void
     {
         //arrange
-        $data = [
-            'to' => '989121112233',
-            'name' => 'John Doe',
-            'message' => 'foo',
-            'type' => 'sms',
-        ];
+        $to = '989121112233';
+        $name = 'John Doe';
+        $message = 'foo';
+        $type = 'sms';
+        $data = compact('to', 'name', 'message', 'type');
+        $queueManager = $this->mock(QueueManagerInterface::class);
+
+        //expect
+        $queueManager->shouldReceive('publish')->once();
 
         //act
         $response = $this->postJson(self::NOTIFICATION_URI, $data);
 
         //assert
         $response->assertStatus(204);
+        $this->assertDatabaseHas('notifications', [
+            'to' => $to,
+            'name' => $name,
+            'message' => $message,
+            'type' => 1,
+            'sent' => 0
+        ]);
     }
 
     /**
@@ -35,18 +51,28 @@ class SendNotificationControllerTest extends TestCase
     public function testInvoke_shouldWorkForSendingEmail(): void
     {
         //arrange
-        $data = [
-            'to' => 'foo@bar.com',
-            'name' => 'John Doe',
-            'message' => '<h1>foo<h1>',
-            'type' => 'email',
-        ];
+        $to = 'foo@bar.com';
+        $name = 'John Doe';
+        $message = '<h1>foo<h1>';
+        $type = 'email';
+        $data = compact('to', 'name', 'message', 'type');
+        $queueManager = $this->mock(QueueManagerInterface::class);
+
+        //expect
+        $queueManager->shouldReceive('publish')->once();
 
         //act
         $response = $this->postJson(self::NOTIFICATION_URI, $data);
 
         //assert
         $response->assertStatus(204);
+        $this->assertDatabaseHas('notifications', [
+            'to' => $to,
+            'name' => $name,
+            'message' => $message,
+            'type' => 2,
+            'sent' => 0
+        ]);
     }
 
     /**
@@ -87,6 +113,7 @@ class SendNotificationControllerTest extends TestCase
         $response->assertJsonStructure([
             'message' => $expectedKeys
         ]);
+//        $this->assertDatabaseHas()
     }
 
     public function invalidAcceptHeaderDataProvider(): array
