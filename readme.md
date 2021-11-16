@@ -87,7 +87,8 @@ A queue implementing AMQP protocol used as the application async tasks topic.
 * As far as this an assignment, there is no fallback in case of having failure in sending notifications. To have a failed tasks queue could be a suggestion.  
 * To push different types of notifications into different queues.  
 * To write end-to-end tests for evaluating both producing and consuming processes.  
-* 
+* Adding more tests to increase the code coverage
+* Using code quality tools like `phpstan`
 
 ## Author
 Majid Akbari [Linkedin](https://linkedin.com/in/majid-akbari)
