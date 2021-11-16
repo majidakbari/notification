@@ -1,6 +1,6 @@
 <?php
 
-namespace Consumer\Integrations;
+namespace Consumer\Integrations\Queue;
 
 use ErrorException;
 use Exception;

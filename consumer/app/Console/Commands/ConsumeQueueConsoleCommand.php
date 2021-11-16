@@ -3,13 +3,13 @@
 namespace Consumer\Console\Commands;
 
 use Consumer\Actions\SendNotificationAction;
-use Consumer\Integrations\QueueManagerInterface;
+use Consumer\Integrations\Queue\QueueManagerInterface;
 use Consumer\ValueObjects\Notifiable;
 use Illuminate\Console\Command;
 
-class ListenToRabbitmqConsoleCommand extends Command
+class ConsumeQueueConsoleCommand extends Command
 {
-    protected $signature = 'rabbitmq:listen';
+    protected $signature = 'queue:consume';
 
     protected $description = 'This command consumes the rabbitmq';
 

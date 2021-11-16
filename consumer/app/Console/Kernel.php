@@ -2,7 +2,7 @@
 
 namespace Consumer\Console;
 
-use Consumer\Console\Commands\ListenToRabbitmqConsoleCommand;
+use Consumer\Console\Commands\ConsumeQueueConsoleCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ListenToRabbitmqConsoleCommand::class,
+        ConsumeQueueConsoleCommand::class,
     ];
 
     /**

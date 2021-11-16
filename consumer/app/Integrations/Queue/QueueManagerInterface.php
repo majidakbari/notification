@@ -1,6 +1,6 @@
 <?php
 
-namespace Consumer\Integrations;
+namespace Consumer\Integrations\Queue;
 
 interface QueueManagerInterface
 {

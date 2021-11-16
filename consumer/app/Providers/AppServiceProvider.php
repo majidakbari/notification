@@ -2,8 +2,8 @@
 
 namespace Consumer\Providers;
 
-use Consumer\Integrations\QueueManagerInterface;
-use Consumer\Integrations\RabbitmqQueueManager;
+use Consumer\Integrations\Queue\QueueManagerInterface;
+use Consumer\Integrations\Queue\RabbitmqQueueManager;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
