@@ -45,8 +45,7 @@ services:
     environment:
       - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
     depends_on:
-      - assignment-db
-      - assignment-queue
+      - assignment-core
     env_file:
       - .env
 
