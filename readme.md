@@ -54,29 +54,40 @@ Under `.data/app/log` directory there is a directory named `webserver` which hol
 Under `storage/logs` directory, you can find detailed logs of API calls.
 
 ### Tests
-There are different types of testing methods which you can find under `app/tests` directory. Tests are divided to the following groups:
+There are different types of testing methods which you can find under `publisher/tests` and `consumer/tests` directories. Tests are divided into the following groups:
 * feature
 * unit
-* middleware
-* repository
-* in-memory-database
 
-To run tests, in the terminal use the following command:
+To run tests, in the terminal use the following commands:
 ```bash
 docker-compose exec assignment-core vendor/bin/phpunit
+docker-compose exec assignment-consumer vendor/bin/phpunit
 ```
 You can run each group individually by passing `--group {groupName}` to phpunit command. Of course, it is possible to create many more test cases for this application. 
 
 ## Technical discussions (Images/Containers)
-This project includes three docker containers based on `php-apache`, `MySQL` and `Rabbitmq` images.
+This project includes four docker containers based on `php-apache`, `MySQL`, `php-cli` and `Rabbitmq` images.
 It is under development, So the source code is mounted from the host to containers. On production environment you should remove these volumes.
 
-`assignment-core`
-php:8.0.12-apache
+`assignment-core`: php:8.0.12-apache  
+This container is the application gateway; It's responsible for pushing tasks into the queue and also generating proper http responses.
 
-`assignment-db`
-MySQL:latest(8.0.27)
+`assignment-consumer`: php:8.0.12-cli  
+A command line application for consuming queues and taking proper action based on queue entries.
 
+`assignment-db`: MySQL:latest(8.0.27)  
+Keeping track of sent notifications is managed by this database container.
+
+
+`assignment-queue` bitnami/rabbitmq  
+A queue implementing AMQP protocol used as the application async tasks topic.
+
+
+## Suggestions 
+* As far as this an assignment, there is no fallback in case of having failure in sending notifications. To have a failed tasks queue could be a suggestion.  
+* To push different types of notifications into different queues.  
+* To write end-to-end tests for evaluating both producing and consuming processes.  
+* 
 
 ## Author
 Majid Akbari [Linkedin](https://linkedin.com/in/majid-akbari)
