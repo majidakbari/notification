@@ -35,6 +35,14 @@ class RabbitmqQueueManager implements QueueManagerInterface
         $this->channel->queue_declare($queueable->getQueueName(), false, true, false, false);
         $msg = new AMQPMessage($queueable->serialize(), self::MESSAGE_PROPERTIES);
         $this->channel->basic_publish($msg, routing_key: $queueable->getQueueName());
+        $this->shutdown();
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function shutdown(): void
+    {
         $this->channel->close();
         $this->connection->close();
     }

@@ -2,43 +2,38 @@
 
 namespace Consumer\Console\Commands;
 
+use Consumer\Actions\SendNotificationAction;
+use Consumer\Integrations\QueueManagerInterface;
+use Consumer\ValueObjects\Notifiable;
 use Illuminate\Console\Command;
 
 class ListenToRabbitmqConsoleCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'rabbitmq:listen';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
+    protected $description = 'This command consumes the rabbitmq';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(
+        private QueueManagerInterface $queueManager,
+        private SendNotificationAction $sendNotificationAction
+    )
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
-        $this->info('it works');
-        while (true) {
-        }
+        $this->info('consuming');
+        $this->queueManager->consume('notifications', '', function (string $messageBody) {
+            $message = json_decode($messageBody);
+            $notifiable = new Notifiable(
+                $message->type,
+                $message->to,
+                $message->name,
+                $message->message,
+                $message->key
+            );
+            ($this->sendNotificationAction)($notifiable);
+        });
     }
 }
