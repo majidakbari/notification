@@ -2,10 +2,15 @@
 
 namespace Consumer\Integrations\Notification;
 
+use Throwable;
+
 class EmailNotificationService implements NotificationServiceInterface
 {
-    public function send(string $to, string $message): void
+    public function send(string $to, string $name, string $message): void
     {
-        dd($to, $message, 'email');
+        try {
+            mail($to, "Dear $name", $message);
+        } catch (Throwable) {
+        }
     }
 }
