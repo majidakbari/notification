@@ -16,14 +16,14 @@ class ListenToRabbitmqConsoleCommand extends Command
     public function __construct(
         private QueueManagerInterface $queueManager,
         private SendNotificationAction $sendNotificationAction
-    )
-    {
+    ) {
         parent::__construct();
     }
 
     public function handle(): void
     {
-        $this->info('consuming');
+        $this->info('consuming...');
+
         $this->queueManager->consume('notifications', '', function (string $messageBody) {
             $message = json_decode($messageBody);
             $notifiable = new Notifiable(

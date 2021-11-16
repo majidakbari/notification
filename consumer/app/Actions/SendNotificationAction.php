@@ -6,7 +6,7 @@ use Consumer\ValueObjects\Notifiable;
 
 class SendNotificationAction
 {
-    public function __invoke(Notifiable $notifiable)
+    public function __invoke(Notifiable $notifiable): void
     {
         dd($notifiable);
     }
