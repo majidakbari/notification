@@ -37,8 +37,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Config apache and copy entrypoint
 COPY ./config/* /etc/supervisor/conf.d/
 COPY ./entrypoint.sh /
-COPY ./../../consumer /var/www
-RUN cd /var/www && composer install
+
 RUN chmod +x /entrypoint.sh
 
 # Override workdir to an existing directory
