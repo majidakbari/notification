@@ -48,7 +48,7 @@ In this application there are two levels of logs, you can figure out more in the
 
 #### Infrastructure level logs
 In the project's root, there is `.data` directory which is used to store logs (and also used for some other purposes). You can use your preferred logging tool like `ELK` or etc. to manage them.
-Under `.data/app/log` directory there is a directory named `webserver` which holds apache server `access` and `error` logs.
+Under `.data/publisher/log` directory, there is a directory named `webserver` which holds apache server `access` and `error` logs and `consumer/log` directory keeps supervisor log files.
 
 #### Application level logs
 Under `storage/logs` directory, you can find detailed logs of API calls.
