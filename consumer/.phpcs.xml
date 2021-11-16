@@ -3,6 +3,7 @@
     <description>The Laravel Coding Standards</description>
 
     <file>app</file>
+    <file>config</file>
     <file>tests</file>
 
     <exclude-pattern>*/cache/*</exclude-pattern>

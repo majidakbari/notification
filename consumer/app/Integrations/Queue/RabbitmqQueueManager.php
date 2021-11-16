@@ -73,7 +73,7 @@ class RabbitmqQueueManager implements QueueManagerInterface
         $this->channel->basic_consume(
             $queueName,
             $consumerTag,
-            callback: function(AMQPMessage $message) use ($callback) {
+            callback: function (AMQPMessage $message) use ($callback) {
                 $callback($message->body);
                 $message->ack();
             }

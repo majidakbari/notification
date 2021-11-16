@@ -43,7 +43,7 @@ class ConsumeQueueConsoleCommand extends Command
     {
         $type = $message->type;
         $action = app()->make(SendNotificationAction::class);
-        $notificationServiceCreator = match($type) {
+        $notificationServiceCreator = match ($type) {
             self::MESSAGE_TYPE_EMAIL => new EmailServiceCreator(),
             self::MESSAGE_TYPE_SMS => new SmsServiceCreator(),
             default => throw new InvalidArgumentException()
