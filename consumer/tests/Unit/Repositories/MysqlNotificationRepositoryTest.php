@@ -13,6 +13,9 @@ class MysqlNotificationRepositoryTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * @group unit
+     */
     public function testUpdateByMessageKeyAndSetAsSentShouldWork(): void
     {
         //arrange

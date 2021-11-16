@@ -1,6 +1,6 @@
 # Assignment
 ## Summary
-This application is a standalone micro service which provides REST HTTP endpoints.
+This application contains two micro-services working together and providing REST HTTP endpoints.
 
 ## Features Overview
 * Fully isolated and dockerized application

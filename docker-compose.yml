@@ -39,7 +39,6 @@ services:
         - WWW_DATA_USER_ID=${WWW_DATA_USER_ID}
     container_name: assignment-consumer
     volumes:
-      - ./consumer/:/var/www/
       - ./.data/consumer/log:/var/log/supervisor/
     restart: always
     environment:
