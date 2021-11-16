@@ -38,9 +38,9 @@ class ConsumeQueueConsoleCommand extends Command
     {
         $type = $message->type;
         $action = new SendNotificationAction();
-        $action = match($type) {
-            self::MESSAGE_TYPE_EMAIL => $action->setNotificationServiceCreator(new EmailServiceCreator()),
-            self::MESSAGE_TYPE_SMS => $action->setNotificationServiceCreator(new SmsServiceCreator()),
+        $notificationServiceCreator = match($type) {
+            self::MESSAGE_TYPE_EMAIL => new EmailServiceCreator(),
+            self::MESSAGE_TYPE_SMS => new SmsServiceCreator(),
             default => throw new InvalidArgumentException()
         };
         $notifiable = new Notifiable(
@@ -48,6 +48,6 @@ class ConsumeQueueConsoleCommand extends Command
             $message->message,
             $message->key
         );
-        ($action)($notifiable);
+        ($action->setNotificationServiceCreator($notificationServiceCreator))($notifiable);
     }
 }
