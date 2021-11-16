@@ -16,7 +16,8 @@ class SmsNotificationService implements NotificationServiceInterface
                     'to' => $to,
                     'message' => $message,
                     'name' => $name
-                ]
+                ],
+                'connect_timeout' => 1
             ]);
         } catch (Throwable) {
         }

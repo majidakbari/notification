@@ -45,6 +45,7 @@ class ConsumeQueueConsoleCommand extends Command
         };
         $notifiable = new Notifiable(
             $message->to,
+            $message->name,
             $message->message,
             $message->key
         );

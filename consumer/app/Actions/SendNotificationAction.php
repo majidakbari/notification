@@ -20,5 +20,6 @@ class SendNotificationAction
     public function __invoke(Notifiable $notifiable): void
     {
         $this->notificationServiceCreator?->handle($notifiable);
+        dd('it worked!');
     }
 }

@@ -11,6 +11,6 @@ abstract class NotificationServiceCreator
 
     public function handle(Notifiable $notifiable): void
     {
-        $this->factoryMethod()->send($notifiable->getTo(), $notifiable->getMessage());
+        $this->factoryMethod()->send($notifiable->getTo(), $notifiable->getName(), $notifiable->getMessage());
     }
 }

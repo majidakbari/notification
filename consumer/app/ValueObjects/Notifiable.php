@@ -4,8 +4,12 @@ namespace Consumer\ValueObjects;
 
 class Notifiable
 {
-    public function __construct(private string $to, private string $message, private string $messageKey)
-    {
+    public function __construct(
+        private string $to,
+        private string $name,
+        private string $message,
+        private string $messageKey
+    ) {
     }
 
     public function getTo(): string
@@ -21,5 +25,10 @@ class Notifiable
     public function getMessageKey(): string
     {
         return $this->messageKey;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
