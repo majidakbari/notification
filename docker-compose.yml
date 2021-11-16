@@ -72,10 +72,15 @@ services:
   assignment-queue:
     image: bitnami/rabbitmq
     container_name: assignment-queue
+    volumes:
+      - './.data/rabbitmq:/bitnami'
     restart: always
     environment:
       - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
       - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
       - RABBITMQ_NODE_TYPE=queue-disc
-    volumes:
-      - './.data/rabbitmq:/bitnami'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5

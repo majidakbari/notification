@@ -13,6 +13,7 @@ RUN apt-get update -y && \
         libssl-dev \
         libonig-dev \
         supervisor \
+        sendmail \
         unzip && \
         docker-php-ext-install -j$(nproc) zip sockets \
         mbstring \

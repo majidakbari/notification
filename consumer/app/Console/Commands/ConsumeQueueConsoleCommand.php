@@ -8,6 +8,7 @@ use Consumer\Factories\SmsServiceCreator;
 use Consumer\Integrations\Queue\QueueManagerInterface;
 use Consumer\ValueObjects\Notifiable;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use InvalidArgumentException;
 use stdClass;
 
@@ -34,10 +35,14 @@ class ConsumeQueueConsoleCommand extends Command
         });
     }
 
+    /**
+     * @param stdClass $message
+     * @throws BindingResolutionException
+     */
     private function sendNotification(stdClass $message): void
     {
         $type = $message->type;
-        $action = new SendNotificationAction();
+        $action = app()->make(SendNotificationAction::class);
         $notificationServiceCreator = match($type) {
             self::MESSAGE_TYPE_EMAIL => new EmailServiceCreator(),
             self::MESSAGE_TYPE_SMS => new SmsServiceCreator(),
